@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import employeeRouter from "./routes/employeesRoutes.mjs";
-import 'dotenv/config'; // carga automáticamente backend/.env
+import 'dotenv/config';
 import { connectDB } from "./config/dbConfig.mjs";
 
 // Cargar modelos
@@ -21,7 +21,7 @@ const corsOptions = {
 };
 
 // Middleware
-app.use(cors()); // Habilita peticiones desde frontend
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Configuración de rutas
@@ -45,7 +45,7 @@ process.on('unhandledRejection', (err) => {
 });
 
 // Ruta de ejemplo
-app.get("/api/ping", (req, res) => {
+app.get("/", (req, res) => {
   res.json({ message: "pong" });
 });
 

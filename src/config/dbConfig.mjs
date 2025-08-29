@@ -1,9 +1,11 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-export const connectDB = async() => {
-    try {
-        await mongoose.connect(import.meta.env.DATABASE_ACCESS);
-    } catch ( error ) {
-        process.exit(1);
-    }
-}
+export const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.DATABASE_ACCESS);
+    console.log("✅ Conectado a MongoDB");
+  } catch (error) {
+    console.error("❌ Error al conectar MongoDB", error);
+    process.exit(1);
+  }
+};

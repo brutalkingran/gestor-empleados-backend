@@ -11,7 +11,7 @@ export const getAllEmployeesController = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
 
-    const result = await fetchEmployeesPaginated(page, limit);
+    const result = await getAllEmployees(page, limit);
 
     res.json(result);
   } catch (err) {
@@ -107,7 +107,7 @@ export const getEmployeeController = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const employee = await getEmployeeById(id);
+    const employee = await getEmployee(id);
 
     res.status(200).json(employee);
   } catch (error) {

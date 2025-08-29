@@ -14,18 +14,18 @@ import { handleValidationErrors } from "../validations/errorMiddleware.mjs";
 const router = express.Router();
 
 // Crear
-router.post("/employees/create", registerEmployeeValidationRules(), handleValidationErrors, createEmployeeController);
+router.post("/create", registerEmployeeValidationRules(), handleValidationErrors, createEmployeeController);
 
 // Editar
-router.put("/employees/modify", updateEmployeeValidationRules(), handleValidationErrors, updateEmployeeController);
+router.put("/modify", updateEmployeeValidationRules(), handleValidationErrors, updateEmployeeController);
 
 // Eliminar
-router.delete("/employees/delete/:id", deleteEmployeeValidationRules(), handleValidationErrors, deleteEmployeeController);
+router.delete("/delete/:id", deleteEmployeeValidationRules(), handleValidationErrors, deleteEmployeeController);
 
 // Get empleados
-router.get("/employees", getAllEmployeesController);
+router.get("/", getAllEmployeesController);
 
 // Obtener por ID
-router.get("/employees/:id", getEmployeeController);
+router.get("/:id", getEmployeeController);
 
 export default router;
