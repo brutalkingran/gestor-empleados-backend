@@ -5,7 +5,12 @@ class EmployeeRepository {
     const skip = (page - 1) * limit;
 
     const [employees, totalCount] = await Promise.all([
-      Employee.find().skip(skip).limit(limit),
+      Employee
+        .find()
+        .skip(skip)
+        .limit(limit)
+        .populate("rank")
+        .populate("department"),
       Employee.countDocuments()
     ]);
 
@@ -30,7 +35,9 @@ class EmployeeRepository {
   }
 
   async getEmployee(id) {
-    return await Employee.findById(id);
+    return await Employee.findById(id)
+      .populate("rank")
+      .populate("department");
   }
 }
 

@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import employeeRouter from "./routes/employeesRoutes.mjs";
+import authRouter from "./routes/authRoutes.mjs";
 import 'dotenv/config';
 import { connectDB } from "./config/dbConfig.mjs";
 
@@ -26,6 +27,7 @@ app.use(express.json());
 
 // Configuración de rutas
 app.use('/api/v1/employees', employeeRouter);
+app.use('/api/v1/auth', authRouter);
 // app.use('/api/v1/profiles', profileRouter);
 
 // Iniciar conexión a MongoDB

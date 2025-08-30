@@ -1,3 +1,5 @@
+import Ranks from "./Ranks.mjs";
+import Department from "./Departments.mjs"; // esto sí funciona
 import mongoose from 'mongoose';
 
 const employeeSchema = new mongoose.Schema({
@@ -6,8 +8,8 @@ const employeeSchema = new mongoose.Schema({
   email: { type: String, required: true },
   phoneNumber: String,
   position: String,
-  rank: Number,
-  department: String,
+  rank: { type: mongoose.Schema.Types.ObjectId, ref: "Rank", required: true },
+  department: { type: mongoose.Schema.Types.ObjectId, ref: "Department", required: true },
   hireDate: Date,
   isActive: Boolean,
   salary: Number,
