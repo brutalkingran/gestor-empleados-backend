@@ -47,7 +47,7 @@ router.delete(
 router.get(
   "/",
   authenticateToken,
-  hasPermission(["read_employee", "manage_department_employees", "manage_all_employees"]),
+  hasPermission(["read_employee"]), //, "manage_department_employees", "manage_all_employees"
   getAllEmployeesController
 );
 

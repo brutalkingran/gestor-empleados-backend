@@ -19,6 +19,11 @@ class AuthService {
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
 
+    const rankExists = await Rank.findById(userData.rank);
+    if (!rankExists) {
+      throw new Error("El rank enviado no existe.");
+    }
+
     // Asignar rank por defecto si no se pasa
     let rankId = userData.rank;
     if (!rankId) {
