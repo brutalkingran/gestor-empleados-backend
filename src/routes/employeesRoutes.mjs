@@ -55,12 +55,9 @@ router.get(
 router.get(
   "/:id",
   authenticateToken,
-  hasPermission([
-    "read_own_employee",
-    "read_employee",
-    "manage_department_employees",
-    "manage_all_employees"
-  ]),
+  hasPermission(
+    "read_employee"
+  ),
   getEmployeeController
 );
 

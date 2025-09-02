@@ -49,11 +49,13 @@ class AuthService {
 
   // Login
   async login(email, password) {
+    // valida mail
     const user = await User.findOne({ email }).populate("rank");
     if (!user) {
       throw new Error('Usuario no encontrado');
     }
 
+    // valida contraseña
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
       throw new Error('Contraseña incorrecta');
@@ -70,9 +72,18 @@ class AuthService {
   generateToken(user) {
     return jwt.sign(
       {
-        id: user._id,
-        rank: user.rank.name,
-        permissions: user.rank.permissions
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        fullName: `${user.firstName} ${user.lastName}`,
+        username: user.username,
+        email: user.email,
+        mustChangePassword: user.mustChangePassword,
+        rank: {
+          id: user.rank.id,
+          name: user.rank.name,
+          permissions: user.rank.permissions
+        }
       },
       process.env.JWT_SECRET,
       { expiresIn: "12h" }
