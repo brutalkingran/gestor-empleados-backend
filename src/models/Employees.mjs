@@ -20,5 +20,6 @@ const employeeSchema = new mongoose.Schema({
   notes: String
 });
 
-const Employee = mongoose.model('Employee', employeeSchema, 'employees');
+const Employee = mongoose.models.Employee || mongoose.model("Employee", employeeSchema, "employees");
+
 export default Employee;

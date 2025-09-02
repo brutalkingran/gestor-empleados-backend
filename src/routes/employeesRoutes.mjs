@@ -6,26 +6,62 @@ import {
   deleteEmployeeController,
   getEmployeeController
 } from "../controllers/employeesController.mjs";
-
+import { authenticateToken } from "../validations/authenticationMiddleware.mjs"
 import { deleteEmployeeValidationRules, registerEmployeeValidationRules, updateEmployeeValidationRules } from "../validations/validationRulesEmployees.mjs";
-
 import { handleValidationErrors } from "../validations/errorMiddleware.mjs";
+import { hasPermission } from "../validations/authorizationMiddleware.mjs";
 
 const router = express.Router();
 
-// Crear
-router.post("/create", registerEmployeeValidationRules(), handleValidationErrors, createEmployeeController);
+// Crear empleado
+router.post(
+  "/create",
+  authenticateToken,
+  hasPermission("manage_all_employees"),
+  registerEmployeeValidationRules(),
+  handleValidationErrors,
+  createEmployeeController
+);
 
-// Editar
-router.put("/modify", updateEmployeeValidationRules(), handleValidationErrors, updateEmployeeController);
+// Editar empleado
+router.put(
+  "/modify",
+  authenticateToken,
+  hasPermission(["update_own_employee", "manage_department_employees", "manage_all_employees"]),
+  updateEmployeeValidationRules(),
+  handleValidationErrors,
+  updateEmployeeController
+);
 
-// Eliminar
-router.delete("/delete/:id", deleteEmployeeValidationRules(), handleValidationErrors, deleteEmployeeController);
+// Eliminar empleado
+router.delete(
+  "/delete/:id",
+  authenticateToken,
+  hasPermission(["manage_department_employees", "manage_all_employees"]),
+  deleteEmployeeValidationRules(),
+  handleValidationErrors,
+  deleteEmployeeController
+);
 
 // Get empleados
-router.get("/", getAllEmployeesController);
+router.get(
+  "/",
+  authenticateToken,
+  hasPermission(["read_employee", "manage_department_employees", "manage_all_employees"]),
+  getAllEmployeesController
+);
 
-// Obtener por ID
-router.get("/:id", getEmployeeController);
+// Obtener empleado por ID
+router.get(
+  "/:id",
+  authenticateToken,
+  hasPermission([
+    "read_own_employee",
+    "read_employee",
+    "manage_department_employees",
+    "manage_all_employees"
+  ]),
+  getEmployeeController
+);
 
 export default router;

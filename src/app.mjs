@@ -5,11 +5,6 @@ import authRouter from "./routes/authRoutes.mjs";
 import 'dotenv/config';
 import { connectDB } from "./config/dbConfig.mjs";
 
-// Cargar modelos
-// require('./models/Departments');
-// require('./models/Employees');
-// require('./models/Roles');
-// require('./models/Users');
 const app = express();
 
 const corsOptions = {

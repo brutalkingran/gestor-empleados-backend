@@ -5,4 +5,6 @@ const rankSchema = new mongoose.Schema({
   permissions: [String]
 });
 
-export default mongoose.models.Rank || mongoose.model("Rank", rankSchema, "ranks");
+const Rank = mongoose.models.Rank || mongoose.model("Rank", rankSchema, "ranks");
+
+export default Rank;

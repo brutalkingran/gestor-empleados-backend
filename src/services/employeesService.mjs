@@ -1,7 +1,7 @@
 import EmployeeRepository from "../repositories/employeesRepository.mjs";
 
-export const getAllEmployees = async (page, limit) => {
-  return await EmployeeRepository.getAllEmployees(page, limit);
+export const getAllEmployees = async (page, limit, sortBy, sortOrder) => {
+  return await EmployeeRepository.getAllEmployees(page, limit, sortBy, sortOrder);
 };
 
 export const addEmployee = async (employeeData) => {

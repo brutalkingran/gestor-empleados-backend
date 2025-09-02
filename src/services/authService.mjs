@@ -1,11 +1,10 @@
-//Creamos un servicio para autenticacion
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/Users.mjs';
+import Rank from '../models/Ranks.mjs';
 
-// Clase que maneja toda la lógica de autenticación
 class AuthService {
-  // Método para registrar un nuevo usuario
+  // Registrar un nuevo usuario
   async register(userData) {
     const existingUser = await User.findOne({ 
       $or: [
@@ -19,23 +18,38 @@ class AuthService {
     }
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
-    
+
+    // Asignar rank por defecto si no se pasa
+    let rankId = userData.rank;
+    if (!rankId) {
+      const defaultRank = await Rank.findOne({ name: "Trainee" });
+      if (!defaultRank) {
+        throw new Error('No existe un rank por defecto llamado Trainee');
+      }
+      rankId = defaultRank._id;
+    }
+
     const user = new User({
       ...userData,
-      password: hashedPassword
+      password: hashedPassword,
+      rank: rankId
     });
-    
+
     await user.save();
-    
+
+    // Hacer populate para devolver nombre del rank
+    await user.populate("rank");
+
     const userResponse = user.toObject();
     delete userResponse.password;
-    
+
     const token = this.generateToken(user);
     return { user: userResponse, token };
   }
 
+  // Login
   async login(email, password) {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate("rank");
     if (!user) {
       throw new Error('Usuario no encontrado');
     }
@@ -51,16 +65,17 @@ class AuthService {
     const token = this.generateToken(user);
     return { user: userResponse, token };
   }
-  
-  // Token JWT
+
+  // Generar JWT usando rank en lugar de role
   generateToken(user) {
     return jwt.sign(
-      { 
+      {
         id: user._id,
-        role: user.role 
+        rank: user.rank.name,
+        permissions: user.rank.permissions
       },
       process.env.JWT_SECRET,
-      { expiresIn: '12h' }
+      { expiresIn: "12h" }
     );
   }
 }

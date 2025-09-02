@@ -24,8 +24,8 @@ export const registerUserValidationRules = () => [
         .notEmpty().withMessage("Campo 'passwordHash' obligatorio.")
         .isString().withMessage('La contraseña debe ser un string válido.'),
 
-    body('role')
-        .notEmpty().withMessage("Campo 'role' obligatorio.")
+    body('rank')
+        .notEmpty().withMessage("Campo 'rank' obligatorio.")
         .isIn(['Boss', 'Manager', 'Employee']).withMessage('El rol debe ser uno de: Boss, Manager, Employee.'),
 
     body('mustChangePassword')
@@ -52,7 +52,7 @@ export const updateUserValidationRules = () => [
         .optional()
         .isString().withMessage('La contraseña debe ser un string válido.'),
 
-    body('role')
+    body('rank')
         .optional()
         .isIn(['Boss', 'Manager', 'Employee']).withMessage('El rol debe ser uno de: Boss, Manager, Employee.'),
 

@@ -10,8 +10,10 @@ export const getAllEmployeesController = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
+    const sortBy = req.query.sortBy || "firstName";
+    const sortOrder = req.query.sortOrder || "asc";
 
-    const result = await getAllEmployees(page, limit);
+    const result = await getAllEmployees(page, limit, sortBy, sortOrder);
 
     res.json(result);
   } catch (err) {
