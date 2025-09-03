@@ -5,7 +5,7 @@ import authRouter from "./routes/authRoutes.mjs";
 import profilesRouter from "./routes/profilesRoutes.mjs";
 import 'dotenv/config';
 import { connectDB } from "./config/dbConfig.mjs";
-
+import { getDepartmentsController, getRanksController } from "./controllers/extraController.mjs";
 
 const app = express();
 
@@ -26,6 +26,8 @@ app.use(express.json());
 app.use('/api/v1/employees', employeeRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', profilesRouter);
+app.get("/api/v1/departments", getDepartmentsController);
+app.get("/api/v1/ranks", getRanksController);
 
 // Iniciar conexión a MongoDB
 connectDB();
