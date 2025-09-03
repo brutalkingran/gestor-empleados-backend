@@ -4,7 +4,7 @@ import {
   updateUser,
   deleteUser,
   getUser
-} from "../services/usersService.mjs";
+} from "../services/profilesService.mjs";
 
 // Obtener todos los usuarios (paginado)
 export const getAllUsersController = async (req, res) => {
@@ -90,7 +90,7 @@ export const deleteUserController = async (req, res) => {
 };
 
 // Obtener un usuario por ID
-export const getUserByIdController = async (req, res) => {
+export const getUserController = async (req, res) => {
   try {
     const { id } = req.params;
 

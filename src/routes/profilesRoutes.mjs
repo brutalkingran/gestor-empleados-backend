@@ -4,13 +4,13 @@ import {
   createUserController,
   updateUserController,
   deleteUserController,
-  getUserByIdController
-} from "../controllers/userController.mjs";
+  getUserController
+} from "../controllers/profilesController.mjs";
 
 import {
-  deleteByIdValidationRules,
-  registerValidationRules,
-  updateValidationRules
+  deleteUserValidationRules,
+  registerUserValidationRules,
+  updateUserValidationRules
 } from "../validations/validationRulesUsers.mjs";
 
 import { handleValidationErrors } from "../validations/errorMiddleware.mjs";
@@ -18,18 +18,18 @@ import { handleValidationErrors } from "../validations/errorMiddleware.mjs";
 const router = express.Router();
 
 // Crear usuario
-router.post("/user/create", registerValidationRules(), handleValidationErrors, createUserController);
+router.post("/create", registerUserValidationRules(), handleValidationErrors, createUserController);
 
 // Editar usuario
-router.put("/user/modify", updateValidationRules(), handleValidationErrors, updateUserController);
+router.put("/modify", updateUserValidationRules(), handleValidationErrors, updateUserController);
 
 // Eliminar usuario
-router.delete("/user/delete/:id", deleteByIdValidationRules(), handleValidationErrors, deleteUserController);
+router.delete("/delete/:id", deleteUserValidationRules(), handleValidationErrors, deleteUserController);
 
 // Mostrar todos los usuarios (paginado)
-router.get("/user", getAllUsersController);
+router.get("/", getAllUsersController);
 
 // Obtener usuario por ID
-router.get("/user/:id", getUserByIdController);
+router.get("/:id", getUserController);
 
 export default router;

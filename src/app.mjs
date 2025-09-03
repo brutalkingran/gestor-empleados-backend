@@ -2,8 +2,10 @@ import express from "express";
 import cors from "cors";
 import employeeRouter from "./routes/employeesRoutes.mjs";
 import authRouter from "./routes/authRoutes.mjs";
+import profilesRouter from "./routes/profilesRoutes.mjs";
 import 'dotenv/config';
 import { connectDB } from "./config/dbConfig.mjs";
+
 
 const app = express();
 
@@ -23,7 +25,7 @@ app.use(express.json());
 // Configuración de rutas
 app.use('/api/v1/employees', employeeRouter);
 app.use('/api/v1/auth', authRouter);
-// app.use('/api/v1/profiles', profileRouter);
+app.use('/api/v1/users', profilesRouter);
 
 // Iniciar conexión a MongoDB
 connectDB();

@@ -56,7 +56,7 @@ export const updateUserValidationRules = () => [
     .matches(/^[a-zA-Z0-9_]+$/).withMessage('El username solo puede contener letras, números y guiones bajos.'),
 
   body('password')
-    .optional
+    .optional()
     .notEmpty().withMessage("Campo 'password' obligatorio.")
     .isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres.'),
 

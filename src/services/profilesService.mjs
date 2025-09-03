@@ -1,4 +1,4 @@
-import UserRepository from "../repositories/usersRepository.mjs";
+import UserRepository from "../repositories/profilesRepository.mjs";
 
 // Obtener todos los usuarios (con paginación y orden)
 export const getAllUsers = async (page, limit, sortBy, sortOrder) => {
