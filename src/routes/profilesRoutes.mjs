@@ -1,31 +1,35 @@
 import express from "express";
 import {
-  getAllProfilesController,
-  createEmployeeController,
-  updateEmployeeController,
-  deleteEmployeeController,
-  getEmployeeByIdController
-} from "../controllers/profileController.mjs";
+  getAllUsersController,
+  createUserController,
+  updateUserController,
+  deleteUserController,
+  getUserByIdController
+} from "../controllers/userController.mjs";
 
-import { deleteByIdValidationRules, registerValidationRules, updateValidationRules } from "../validations/validationRulesProfiles.mjs";
+import {
+  deleteByIdValidationRules,
+  registerValidationRules,
+  updateValidationRules
+} from "../validations/validationRulesUsers.mjs";
 
 import { handleValidationErrors } from "../validations/errorMiddleware.mjs";
 
 const router = express.Router();
 
-// Crear
-router.post("/profile/create", registerValidationRules(), handleValidationErrors, createEmployeeController);
+// Crear usuario
+router.post("/user/create", registerValidationRules(), handleValidationErrors, createUserController);
 
-// Editar
-router.put("/profile/modify", updateValidationRules(), handleValidationErrors, updateEmployeeController);
+// Editar usuario
+router.put("/user/modify", updateValidationRules(), handleValidationErrors, updateUserController);
 
-// Eliminar
-router.delete("/profile/delete/:id", deleteByIdValidationRules(), handleValidationErrors, deleteEmployeeController);
+// Eliminar usuario
+router.delete("/user/delete/:id", deleteByIdValidationRules(), handleValidationErrors, deleteUserController);
 
-// Mostrar todos (paginado)
-router.get("/profile", getAllProfilesController);
+// Mostrar todos los usuarios (paginado)
+router.get("/user", getAllUsersController);
 
-// Obtener por ID
-router.get("/profile/:id", getEmployeeByIdController);
+// Obtener usuario por ID
+router.get("/user/:id", getUserByIdController);
 
 export default router;

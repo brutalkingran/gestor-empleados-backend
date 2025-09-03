@@ -17,7 +17,7 @@ const router = express.Router();
 router.post(
   "/create",
   authenticateToken,
-  hasPermission("manage_all_employees"),
+  hasPermission("create"),
   registerEmployeeValidationRules(),
   handleValidationErrors,
   createEmployeeController
@@ -27,7 +27,7 @@ router.post(
 router.put(
   "/modify",
   authenticateToken,
-  hasPermission(["update_own_employee", "manage_department_employees", "manage_all_employees"]),
+  hasPermission("edit"),
   updateEmployeeValidationRules(),
   handleValidationErrors,
   updateEmployeeController
@@ -37,7 +37,7 @@ router.put(
 router.delete(
   "/delete/:id",
   authenticateToken,
-  hasPermission(["manage_department_employees", "manage_all_employees"]),
+  hasPermission("delete"),
   deleteEmployeeValidationRules(),
   handleValidationErrors,
   deleteEmployeeController
@@ -47,7 +47,7 @@ router.delete(
 router.get(
   "/",
   authenticateToken,
-  hasPermission(["read_employee"]), //, "manage_department_employees", "manage_all_employees"
+  hasPermission("read_all"),
   getAllEmployeesController
 );
 
@@ -55,10 +55,9 @@ router.get(
 router.get(
   "/:id",
   authenticateToken,
-  hasPermission(
-    "read_employee"
-  ),
+  hasPermission("read_one"),
   getEmployeeController
 );
+
 
 export default router;
