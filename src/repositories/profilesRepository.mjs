@@ -44,7 +44,11 @@ class UserRepository {
   }
 
   async deleteUser(id) {
-    return await User.findByIdAndDelete(id);
+    return await User.findByIdAndUpdate(
+      id,
+      { isDeleted: true },
+      { new: true } // devuelve el documento actualizado
+    );
   }
 
   async getUser(id) {
