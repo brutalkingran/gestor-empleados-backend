@@ -16,9 +16,9 @@ const router = express.Router();
 // Crear empleado
 router.post(
   "/create",
-  authenticateToken,
-  hasPermission("create"),
-  registerEmployeeValidationRules(),
+  //authenticateToken,
+  //hasPermission("create"),
+  registerEmployeeValidationRules(), // Middleware
   handleValidationErrors,
   createEmployeeController
 );
@@ -46,8 +46,8 @@ router.delete(
 // Get empleados
 router.get(
   "/",
-  authenticateToken,
-  hasPermission("read_all"),
+  //authenticateToken,
+  //hasPermission("read_all"),
   getAllEmployeesController
 );
 
