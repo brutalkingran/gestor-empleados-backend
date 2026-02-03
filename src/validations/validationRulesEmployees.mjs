@@ -11,6 +11,7 @@ export const deleteEmployeeValidationRules = () => [
 export const registerEmployeeValidationRules = () => [
     body('firstName')
         .notEmpty().withMessage("Campo 'firstName' obligatorio.")
+        .isString().withMessage("ESTE CAMPO SE USA CON STRING Y NO CON NUMEROS")
         .isLength({ min: 2, max: 50 }).withMessage('El nombre debe tener entre 2 y 50 caracteres.'),
 
     body('lastName')
