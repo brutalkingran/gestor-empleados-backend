@@ -31,7 +31,6 @@ export const registerEmployeeValidationRules = () => [
 
     body('rank')
         .notEmpty().withMessage("Campo 'rank' obligatorio."),
-        //.isInt({ min: 1, max: 10 }).withMessage('El rango debe ser un número entero entre 1 y 10.'),
 
     body('department')
         .notEmpty().withMessage("Campo 'department' obligatorio.")
