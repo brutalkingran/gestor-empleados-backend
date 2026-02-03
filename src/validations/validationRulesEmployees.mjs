@@ -30,8 +30,8 @@ export const registerEmployeeValidationRules = () => [
         .isLength({ min: 2, max: 100 }).withMessage('La posición debe tener entre 2 y 100 caracteres.'),
 
     body('rank')
-        .notEmpty().withMessage("Campo 'rank' obligatorio.")
-        .isInt({ min: 1, max: 10 }).withMessage('El rango debe ser un número entero entre 1 y 10.'),
+        .notEmpty().withMessage("Campo 'rank' obligatorio."),
+        //.isInt({ min: 1, max: 10 }).withMessage('El rango debe ser un número entero entre 1 y 10.'),
 
     body('department')
         .notEmpty().withMessage("Campo 'department' obligatorio.")
